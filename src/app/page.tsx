@@ -15,8 +15,8 @@ export default function Home() {
         <div className="overflow-y-auto min-h-0">
           <MissionBoard />
         </div>
-        {/* Tamir Panel */}
-        <div className="min-h-0">
+        {/* Tamir Panel — floats above the page */}
+        <div className="min-h-0 py-2 pr-1">
           <TamirPanel />
         </div>
       </div>
