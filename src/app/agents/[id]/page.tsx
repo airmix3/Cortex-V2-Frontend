@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'motion/react';
@@ -15,7 +15,7 @@ import {
   CheckCircle2, MessageSquare, Search, Beaker, Database, User,
   ArrowLeft, Calendar, Star, ArrowRight, Cpu, Plus, BookOpen,
   GitBranch, ArrowUpDown, Check, Wrench, Brain, LineChart as LineChartIcon,
-  Network, FlaskConical, Sparkles,
+  Network, FlaskConical, Sparkles, X, GripVertical,
 } from 'lucide-react';
 import type { AgentSkill, SkillCategory } from '@/types';
 
@@ -230,6 +230,328 @@ function colorize(line: string) {
   return 'text-slate-400';
 }
 
+/* ── Skills Manager (Interactive) ── */
+const CATS: SkillCategory[] = ['technical', 'ai-ml', 'analysis', 'communication', 'domain'];
+const CAT_ICONS: Record<SkillCategory, React.ElementType> = {
+  technical: Wrench, 'ai-ml': Brain, analysis: LineChartIcon, communication: Network, domain: FlaskConical,
+};
+const PROF_LABEL: Record<string, string> = { expert: 'Expert', intermediate: 'Intermediate', learning: 'Learning' };
+const PROF_COLORS: Record<string, { dot: string; badge: string }> = {
+  expert:       { dot: 'bg-emerald-400', badge: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
+  intermediate: { dot: 'bg-amber-400',   badge: 'text-amber-400 bg-amber-500/10 border-amber-500/20' },
+  learning:     { dot: 'bg-sky-400',      badge: 'text-sky-400 bg-sky-500/10 border-sky-500/20' },
+};
+const PROF_CYCLE: Record<string, 'expert' | 'intermediate' | 'learning'> = {
+  learning: 'intermediate', intermediate: 'expert', expert: 'learning',
+};
+
+function SkillsManager({ profile }: { profile: import('@/types').AgentProfile }) {
+  const [skills, setSkills] = useState<AgentSkill[]>(profile.skills);
+  const [suggestions, setSuggestions] = useState(profile.suggestedSkills ?? []);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [newCategory, setNewCategory] = useState<SkillCategory>('technical');
+  const [newProficiency, setNewProficiency] = useState<'expert' | 'intermediate' | 'learning'>('learning');
+  const [removingSkill, setRemovingSkill] = useState<string | null>(null);
+
+  const skillsByCategory = useMemo(() => {
+    return CATS.reduce((acc, cat) => {
+      acc[cat] = skills.filter(s => s.category === cat);
+      return acc;
+    }, {} as Record<SkillCategory, AgentSkill[]>);
+  }, [skills]);
+
+  const totalUsedToday = skills.filter(s => s.usedToday).length;
+  const expertCount = skills.filter(s => s.proficiency === 'expert').length;
+  const newSkills = skills.filter(s => s.isNew);
+
+  const cycleProficiency = useCallback((skillName: string) => {
+    setSkills(prev => prev.map(s =>
+      s.name === skillName ? { ...s, proficiency: PROF_CYCLE[s.proficiency] } : s
+    ));
+  }, []);
+
+  const removeSkill = useCallback((skillName: string) => {
+    setRemovingSkill(skillName);
+    setTimeout(() => {
+      setSkills(prev => prev.filter(s => s.name !== skillName));
+      setRemovingSkill(null);
+    }, 300);
+  }, []);
+
+  const addFromSuggestion = useCallback((sg: { name: string; category: SkillCategory; reason: string }) => {
+    setSkills(prev => [...prev, { name: sg.name, category: sg.category, proficiency: 'learning', usedToday: false, isNew: true }]);
+    setSuggestions(prev => prev.filter(s => s.name !== sg.name));
+  }, []);
+
+  const addCustomSkill = useCallback(() => {
+    const trimmed = newName.trim();
+    if (!trimmed || skills.some(s => s.name.toLowerCase() === trimmed.toLowerCase())) return;
+    setSkills(prev => [...prev, { name: trimmed, category: newCategory, proficiency: newProficiency, usedToday: false, isNew: true }]);
+    setNewName('');
+    setShowAddForm(false);
+  }, [newName, newCategory, newProficiency, skills]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.15 }}
+      className="card-depth rounded-xl border p-5"
+      style={{ background: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
+    >
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-4">
+        <Wrench size={14} className="text-violet-400" />
+        <h2 className="text-sm font-semibold text-white">Tools &amp; Skills Map</h2>
+        <span className="text-[11px] text-slate-500">{skills.length} skills</span>
+        <div className="flex items-center gap-2 ml-auto">
+          <span className="text-[10px] text-slate-500 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" /> Expert: {expertCount}
+          </span>
+          <span className="text-[10px] text-slate-500">·</span>
+          <span className="text-[10px] text-slate-500 flex items-center gap-1">
+            <Zap size={9} className="text-amber-400" /> Used today: {totalUsedToday}
+          </span>
+          {newSkills.length > 0 && (
+            <>
+              <span className="text-[10px] text-slate-500">·</span>
+              <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                <Sparkles size={9} /> {newSkills.length} new
+              </span>
+            </>
+          )}
+          <span className="text-[10px] text-slate-500">·</span>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium transition-all"
+            style={{
+              background: showAddForm ? 'rgba(245,158,11,0.15)' : 'rgba(255,255,255,0.04)',
+              border: `1px solid ${showAddForm ? 'rgba(245,158,11,0.3)' : 'rgba(255,255,255,0.08)'}`,
+              color: showAddForm ? '#fcd34d' : '#94a3b8',
+            }}
+          >
+            <Plus size={11} /> Add Skill
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Add skill form (inline) */}
+      {showAddForm && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="mb-4 rounded-xl border p-4"
+          style={{ background: 'rgba(245,158,11,0.03)', borderColor: 'rgba(245,158,11,0.15)' }}
+        >
+          <div className="flex items-end gap-3">
+            <div className="flex-1">
+              <label className="text-[10px] text-slate-500 uppercase tracking-wider font-medium block mb-1">Skill Name</label>
+              <input
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && addCustomSkill()}
+                placeholder="e.g. Sentiment Analysis"
+                className="w-full bg-transparent border rounded-lg px-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 outline-none focus:border-amber-500/40 transition-colors"
+                style={{ borderColor: 'var(--border-subtle)' }}
+                autoFocus
+              />
+            </div>
+            <div>
+              <label className="text-[10px] text-slate-500 uppercase tracking-wider font-medium block mb-1">Category</label>
+              <select
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value as SkillCategory)}
+                className="bg-transparent border rounded-lg px-3 py-2 text-sm text-slate-200 outline-none cursor-pointer"
+                style={{ borderColor: 'var(--border-subtle)', background: 'var(--bg-elevated)' }}
+              >
+                {CATS.map(c => (
+                  <option key={c} value={c} style={{ background: '#0a0f1a' }}>{SKILL_CATEGORY_META[c].label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-[10px] text-slate-500 uppercase tracking-wider font-medium block mb-1">Proficiency</label>
+              <div className="flex items-center gap-1">
+                {(['learning', 'intermediate', 'expert'] as const).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => setNewProficiency(p)}
+                    className={`px-2.5 py-1.5 rounded-lg text-[11px] font-medium border transition-all ${
+                      newProficiency === p
+                        ? PROF_COLORS[p].badge
+                        : 'text-slate-600 border-transparent'
+                    }`}
+                  >
+                    {PROF_LABEL[p]}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={addCustomSkill}
+              disabled={!newName.trim()}
+              className="px-4 py-2 rounded-lg text-[12px] font-semibold transition-all disabled:opacity-30"
+              style={{ background: 'rgba(245,158,11,0.85)', color: '#0a0f1a' }}
+            >
+              Add
+            </motion.button>
+            <button
+              onClick={() => { setShowAddForm(false); setNewName(''); }}
+              className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
+            >
+              <X size={14} />
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      <div className="flex gap-5">
+        {/* Radar chart */}
+        <div className="shrink-0 flex flex-col items-center justify-start">
+          <SkillRadar skills={skills} />
+          <p className="text-[9px] text-slate-600 mt-1 text-center">Category Coverage</p>
+        </div>
+
+        {/* Skill categories grid */}
+        <div className="flex-1 grid grid-cols-2 xl:grid-cols-3 gap-3 min-w-0">
+          {CATS.filter(cat => skillsByCategory[cat].length > 0).map((cat, ci) => {
+            const CatIcon = CAT_ICONS[cat];
+            const meta = SKILL_CATEGORY_META[cat];
+            return (
+              <motion.div
+                key={cat}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.2 + ci * 0.05 }}
+                className="rounded-lg border p-3"
+                style={{ background: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
+              >
+                {/* Category header */}
+                <div className="flex items-center gap-1.5 mb-2.5">
+                  <CatIcon size={11} style={{ color: meta.color }} />
+                  <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: meta.color }}>
+                    {meta.label}
+                  </span>
+                  <span className="text-[9px] text-slate-600 ml-auto">{skillsByCategory[cat].length}</span>
+                </div>
+
+                {/* Skills list */}
+                <div className="space-y-1">
+                  {skillsByCategory[cat].map(skill => (
+                    <motion.div
+                      key={skill.name}
+                      layout
+                      initial={{ opacity: 1 }}
+                      animate={{ opacity: removingSkill === skill.name ? 0 : 1, x: removingSkill === skill.name ? -20 : 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="group flex items-center gap-1.5 py-0.5 rounded-md hover:bg-white/3 px-1 -mx-1 transition-colors"
+                    >
+                      {/* Proficiency dot — clickable */}
+                      <button
+                        onClick={() => cycleProficiency(skill.name)}
+                        className="shrink-0 focus:outline-none"
+                        title={`${PROF_LABEL[skill.proficiency]} — click to change`}
+                      >
+                        <motion.span
+                          key={skill.proficiency}
+                          initial={{ scale: 0.5 }}
+                          animate={{ scale: 1 }}
+                          className={`block w-2 h-2 rounded-full ${PROF_COLORS[skill.proficiency].dot} cursor-pointer`}
+                          style={{ boxShadow: `0 0 4px ${skill.proficiency === 'expert' ? 'rgba(52,211,153,0.5)' : skill.proficiency === 'intermediate' ? 'rgba(251,191,36,0.4)' : 'rgba(56,189,248,0.4)'}` }}
+                        />
+                      </button>
+                      {/* Skill name */}
+                      <span className="text-[11px] text-slate-300 flex-1 truncate">{skill.name}</span>
+                      {/* Badges */}
+                      <div className="flex items-center gap-1 shrink-0">
+                        {skill.usedToday && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70 shrink-0"
+                            title="Used today" style={{ boxShadow: '0 0 4px rgba(251,191,36,0.5)' }} />
+                        )}
+                        {skill.isNew && (
+                          <span className="text-[8px] font-bold text-emerald-400 uppercase leading-none border border-emerald-500/30 rounded px-0.5">
+                            new
+                          </span>
+                        )}
+                        {/* Remove button */}
+                        <button
+                          onClick={() => removeSkill(skill.name)}
+                          className="opacity-0 group-hover:opacity-100 p-0.5 text-slate-600 hover:text-rose-400 transition-all"
+                          title="Remove skill"
+                        >
+                          <X size={10} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Legend + Suggested skills (actionable) */}
+      <div className="mt-4 pt-4 border-t flex items-start gap-6" style={{ borderColor: 'var(--border-subtle)' }}>
+        {/* Legend */}
+        <div>
+          <p className="text-[9px] text-slate-600 uppercase tracking-wider mb-1.5">Proficiency (click dot to change)</p>
+          <div className="flex items-center gap-3">
+            {(['expert', 'intermediate', 'learning'] as const).map(p => (
+              <div key={p} className="flex items-center gap-1">
+                <span className={`w-1.5 h-1.5 rounded-full ${PROF_COLORS[p].dot}`} />
+                <span className="text-[9px] text-slate-500 capitalize">{PROF_LABEL[p]}</span>
+              </div>
+            ))}
+            <div className="w-px h-3 bg-[var(--border-subtle)]" />
+            <div className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70" style={{ boxShadow: '0 0 4px rgba(251,191,36,0.5)' }} />
+              <span className="text-[9px] text-slate-500">Used today</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Suggested skills — now actionable */}
+        {suggestions.length > 0 && (
+          <div className="flex-1">
+            <p className="text-[9px] text-slate-600 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+              <Sparkles size={9} className="text-slate-600" /> Suggested Additions
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {suggestions.map(sg => {
+                const CatIcon2 = CAT_ICONS[sg.category];
+                return (
+                  <motion.button
+                    key={sg.name}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.96 }}
+                    onClick={() => addFromSuggestion(sg)}
+                    className="group flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-dashed transition-all hover:border-solid"
+                    style={{ borderColor: 'rgba(245,158,11,0.25)', background: 'rgba(245,158,11,0.03)' }}
+                    title={sg.reason}
+                  >
+                    <Plus size={10} className="text-amber-400/60 group-hover:text-amber-400 transition-colors" />
+                    <CatIcon2 size={10} style={{ color: SKILL_CATEGORY_META[sg.category].color, opacity: 0.7 }} />
+                    <span className="text-[10px] text-slate-400 group-hover:text-slate-200 transition-colors">{sg.name}</span>
+                    <span className="text-[9px] text-slate-600 group-hover:text-amber-300 transition-colors ml-0.5">Add</span>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 /* ── Main Page ── */
 export default function AgentProfilePage() {
   const params = useParams();
@@ -426,173 +748,8 @@ export default function AgentProfilePage() {
           </motion.div>
         )}
 
-        {/* ── 3. Tools & Skills Map ── */}
-        {profile && (() => {
-          const cats: SkillCategory[] = ['technical', 'ai-ml', 'analysis', 'communication', 'domain'];
-          const catIcons: Record<SkillCategory, React.ElementType> = {
-            technical: Wrench,
-            'ai-ml': Brain,
-            analysis: LineChartIcon,
-            communication: Network,
-            domain: FlaskConical,
-          };
-          const proficiencyLabel: Record<string, string> = {
-            expert: 'Expert',
-            intermediate: 'Intermediate',
-            learning: 'Learning',
-          };
-          const proficiencyColors: Record<string, { dot: string; badge: string }> = {
-            expert:       { dot: 'bg-emerald-400', badge: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
-            intermediate: { dot: 'bg-amber-400',   badge: 'text-amber-400 bg-amber-500/10 border-amber-500/20' },
-            learning:     { dot: 'bg-sky-400',      badge: 'text-sky-400 bg-sky-500/10 border-sky-500/20' },
-          };
-
-          const skillsByCategory = cats.reduce((acc, cat) => {
-            acc[cat] = profile.skills.filter(s => s.category === cat);
-            return acc;
-          }, {} as Record<SkillCategory, AgentSkill[]>);
-
-          const totalUsedToday = profile.skills.filter(s => s.usedToday).length;
-          const expertCount = profile.skills.filter(s => s.proficiency === 'expert').length;
-          const newSkills = profile.skills.filter(s => s.isNew);
-
-          return (
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="card-depth rounded-xl border p-5"
-              style={{ background: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
-            >
-              {/* Header */}
-              <div className="flex items-center gap-2 mb-4">
-                <Wrench size={14} className="text-violet-400" />
-                <h2 className="text-sm font-semibold text-white">Tools &amp; Skills Map</h2>
-                <span className="text-[11px] text-slate-500">{profile.skills.length} skills</span>
-                <div className="flex items-center gap-2 ml-auto">
-                  <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" /> Expert: {expertCount}
-                  </span>
-                  <span className="text-[10px] text-slate-500">·</span>
-                  <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                    <Zap size={9} className="text-amber-400" /> Used today: {totalUsedToday}
-                  </span>
-                  {newSkills.length > 0 && (
-                    <>
-                      <span className="text-[10px] text-slate-500">·</span>
-                      <span className="text-[10px] text-emerald-400 flex items-center gap-1">
-                        <Sparkles size={9} /> {newSkills.length} new
-                      </span>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex gap-5">
-                {/* Radar chart */}
-                <div className="shrink-0 flex flex-col items-center justify-start">
-                  <SkillRadar skills={profile.skills} />
-                  <p className="text-[9px] text-slate-600 mt-1 text-center">Category Coverage</p>
-                </div>
-
-                {/* Skill categories grid */}
-                <div className="flex-1 grid grid-cols-2 xl:grid-cols-3 gap-3 min-w-0">
-                  {cats.filter(cat => skillsByCategory[cat].length > 0).map((cat, ci) => {
-                    const CatIcon = catIcons[cat];
-                    const meta = SKILL_CATEGORY_META[cat];
-                    return (
-                      <motion.div
-                        key={cat}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.2 + ci * 0.05 }}
-                        className="rounded-lg border p-3"
-                        style={{ background: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
-                      >
-                        {/* Category header */}
-                        <div className="flex items-center gap-1.5 mb-2.5">
-                          <CatIcon size={11} style={{ color: meta.color }} />
-                          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: meta.color }}>
-                            {meta.label}
-                          </span>
-                          <span className="text-[9px] text-slate-600 ml-auto">{skillsByCategory[cat].length}</span>
-                        </div>
-
-                        {/* Skills list */}
-                        <div className="space-y-1.5">
-                          {skillsByCategory[cat].map(skill => (
-                            <div key={skill.name} className="flex items-center gap-1.5">
-                              {/* Proficiency dot */}
-                              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${proficiencyColors[skill.proficiency].dot}`} />
-                              {/* Skill name */}
-                              <span className="text-[11px] text-slate-300 flex-1 truncate">{skill.name}</span>
-                              {/* Badges */}
-                              <div className="flex items-center gap-1 shrink-0">
-                                {skill.usedToday && (
-                                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70 shrink-0"
-                                    title="Used today" style={{ boxShadow: '0 0 4px rgba(251,191,36,0.5)' }} />
-                                )}
-                                {skill.isNew && (
-                                  <span className="text-[8px] font-bold text-emerald-400 uppercase leading-none border border-emerald-500/30 rounded px-0.5">
-                                    new
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Legend + Gap suggestions */}
-              <div className="mt-4 pt-4 border-t flex items-start gap-6" style={{ borderColor: 'var(--border-subtle)' }}>
-                {/* Legend */}
-                <div>
-                  <p className="text-[9px] text-slate-600 uppercase tracking-wider mb-1.5">Proficiency</p>
-                  <div className="flex items-center gap-3">
-                    {(['expert', 'intermediate', 'learning'] as const).map(p => (
-                      <div key={p} className="flex items-center gap-1">
-                        <span className={`w-1.5 h-1.5 rounded-full ${proficiencyColors[p].dot}`} />
-                        <span className="text-[9px] text-slate-500 capitalize">{proficiencyLabel[p]}</span>
-                      </div>
-                    ))}
-                    <div className="w-px h-3 bg-[var(--border-subtle)]" />
-                    <div className="flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70" style={{ boxShadow: '0 0 4px rgba(251,191,36,0.5)' }} />
-                      <span className="text-[9px] text-slate-500">Used today</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Suggested skills */}
-                {profile.suggestedSkills && profile.suggestedSkills.length > 0 && (
-                  <div className="flex-1">
-                    <p className="text-[9px] text-slate-600 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                      <Sparkles size={9} className="text-slate-600" /> Suggested Additions
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {profile.suggestedSkills.map(sg => {
-                        const CatIcon2 = catIcons[sg.category];
-                        return (
-                          <div key={sg.name} className="group flex items-center gap-1.5 px-2 py-1 rounded-md border border-dashed cursor-default"
-                            style={{ borderColor: 'var(--border-medium)', background: 'rgba(255,255,255,0.02)' }}
-                            title={sg.reason}>
-                            <Plus size={9} className="text-slate-600 group-hover:text-slate-400 transition-colors" />
-                            <CatIcon2 size={9} style={{ color: SKILL_CATEGORY_META[sg.category].color, opacity: 0.6 }} />
-                            <span className="text-[10px] text-slate-500 group-hover:text-slate-300 transition-colors">{sg.name}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          );
-        })()}
+        {/* ── 3. Tools & Skills Map (Interactive) ── */}
+        {profile && <SkillsManager profile={profile} />}
 
         {/* ── 4. Performance Trends (was 3) ── */}
         {profile && (

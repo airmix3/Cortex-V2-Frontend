@@ -19,8 +19,8 @@ export default function DeliverableChip({ deliverable }: { deliverable: Delivera
   const Icon = fileIcons[deliverable.type] || FileText;
 
   return (
-    <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg group cursor-pointer transition-all hover:brightness-125"
-      style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)' }}
+    <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg group cursor-pointer transition-all hover:brightness-125 hover:border-sky-400/20"
+      style={{ background: 'rgba(20,31,53,0.6)', backdropFilter: 'blur(8px)', border: 'var(--glass-border)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)' }}
     >
       <Icon className="w-4 h-4 text-sky-400 shrink-0" />
       <span className="text-xs text-slate-200 truncate flex-1 font-medium">{deliverable.name}</span>

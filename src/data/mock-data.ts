@@ -27,9 +27,11 @@ export const missions: Mission[] = [
     touchTrail: [people.devAgent2, people.cto, people.tamir],
     flowStage: 3,
     ceoAction: 'Approve g4m.xlarge in us-west-2',
+    primaryCTA: 'Approve GPU · $0.12/hr',
     escalationPath: 'L4 Escalation | Dev > CTO > Tamir > CEO',
     attempts: 3,
     blocker: 'No GPU available in current AZ',
+    age: '3h',
   },
   {
     id: 'm2',
@@ -46,7 +48,9 @@ export const missions: Mission[] = [
     touchTrail: [people.researchAgent, people.cto, people.tamir],
     flowStage: 3,
     ceoAction: 'Approve or reject hire',
+    primaryCTA: 'Approve Hire',
     escalationPath: 'Hiring Pipeline | Research > CTO > Tamir > CEO',
+    age: '1d',
   },
   {
     id: 'm3',
@@ -63,7 +67,9 @@ export const missions: Mission[] = [
     touchTrail: [people.mktAgent1, people.cmo, people.tamir],
     flowStage: 3,
     ceoAction: 'Review deliverables',
+    primaryCTA: 'Review Q2 Plans',
     escalationPath: 'Content Pipeline | Marketing > CMO > Tamir > CEO',
+    age: '4h',
   },
   {
     id: 'm4',
@@ -79,7 +85,9 @@ export const missions: Mission[] = [
     touchTrail: [people.devAgent1, people.devAgent2, people.cto, people.tamir],
     flowStage: 2,
     ceoAction: 'Unblock infrastructure dependency',
+    primaryCTA: 'Unblock ZUNA',
     escalationPath: 'Deploy Pipeline | Dev > DevOps > CTO > Tamir > CEO',
+    age: '45m',
   },
   {
     id: 'm5',
@@ -95,7 +103,9 @@ export const missions: Mission[] = [
     touchTrail: [people.opsAgent, people.coo, people.tamir],
     flowStage: 4,
     ceoAction: 'Acknowledge completion',
+    primaryCTA: 'Mark Complete',
     escalationPath: 'Ops Pipeline | Agent > COO > Tamir > CEO',
+    age: '2d',
   },
 ];
 

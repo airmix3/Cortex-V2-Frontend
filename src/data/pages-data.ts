@@ -178,6 +178,7 @@ export const allMissions: Mission[] = [
     ],
     touchTrail: [{ name: 'Data Scientist', role: 'Temp', avatar: 'DS', color: 'bg-rose-600' }, people.cto, people.tamir],
     flowStage: 3, ceoAction: 'Review benchmark results and approve model version',
+    primaryCTA: 'Approve Model v2',
     escalationPath: 'Research Pipeline | Data Scientist > CTO > Tamir > CEO',
   },
   {
@@ -189,6 +190,7 @@ export const allMissions: Mission[] = [
     ],
     touchTrail: [people.mktAgent1, people.cmo, people.tamir],
     flowStage: 2, ceoAction: 'Review and approve brand direction',
+    primaryCTA: 'Approve Brand Direction',
     escalationPath: 'Brand Pipeline | Content Director > CMO > Tamir > CEO',
   },
   {
@@ -200,6 +202,7 @@ export const allMissions: Mission[] = [
     ],
     touchTrail: [people.opsAgent, people.coo, people.tamir],
     flowStage: 2, ceoAction: 'Approve unified cost methodology and review deck',
+    primaryCTA: 'Approve Methodology',
     escalationPath: 'Ops Pipeline | Ops Agent > COO > Tamir > CEO',
     blocker: 'Revenue projection discrepancy between Tech and Ops',
   },
@@ -213,6 +216,7 @@ export const allMissions: Mission[] = [
     ],
     touchTrail: [{ name: 'Market Intel', role: 'Intelligence', avatar: 'MI', color: 'bg-fuchsia-600' }, people.cmo, people.tamir],
     flowStage: 3, ceoAction: 'Approve campaign budget and channel strategy',
+    primaryCTA: 'Approve Q2 Campaign',
     escalationPath: 'Marketing Pipeline | Market Intel > CMO > Tamir > CEO',
   },
 ];

@@ -22,9 +22,11 @@ export interface Mission {
   touchTrail: Person[];
   flowStage: number; // 0-4: Created, Agent Work, Dept Review, CEO Review, Done
   ceoAction: string;
+  primaryCTA: string; // short, specific button label — e.g. "Approve GPU · $0.12/hr"
   escalationPath: string;
   attempts?: number;
   blocker?: string;
+  age?: string; // e.g. "3h", "45m", "1d"
 }
 
 export interface Department {

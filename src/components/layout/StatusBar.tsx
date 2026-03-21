@@ -1,8 +1,10 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { Activity, AlertTriangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Bot, Zap, CheckSquare, FileOutput, ShieldCheck, RefreshCw } from 'lucide-react';
+
+// ─── ANIMATED NUMBER ───
 
 function AnimatedNumber({ value, className }: { value: number; className: string }) {
   const [display, setDisplay] = useState(0);
@@ -21,45 +23,123 @@ function AnimatedNumber({ value, className }: { value: number; className: string
   return <span className={className}>{display}</span>;
 }
 
-const metrics = [
-  { label: 'Active Missions', value: 12, color: 'text-sky-400' },
-  { label: 'Need Decision', value: 3, color: 'text-amber-400' },
-  { label: 'Blocked', value: 2, color: 'text-rose-400' },
-  { label: 'Ready to Review', value: 4, color: 'text-emerald-400' },
-];
+// ─── LIVE SYNC CLOCK ───
 
-const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } };
-const pill = { hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' as const } } };
+function LiveSyncBadge() {
+  const [secs, setSecs] = useState(12);
+  useEffect(() => {
+    const id = setInterval(() => setSecs((s) => (s >= 60 ? 1 : s + 1)), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <span className="text-[11px] font-semibold text-slate-300 tabular-nums">
+      {secs}s ago
+    </span>
+  );
+}
+
+// ─── BURN RATE SPARK ───
+
+const burnBars = [4, 6, 5, 8, 7, 9, 7, 8, 10, 9, 11, 10];
+
+// ─── METRICS ───
+
+const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.06 } } };
+const pill = {
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+};
+
+const glassBase: React.CSSProperties = {
+  backdropFilter: 'blur(12px) saturate(140%) brightness(1.05)',
+  WebkitBackdropFilter: 'blur(12px) saturate(140%) brightness(1.05)',
+};
 
 export default function StatusBar() {
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="px-6 py-2 relative z-10">
-      <div className="flex items-center gap-2">
-        <motion.div variants={pill} className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-          <Activity className="w-4 h-4 text-emerald-400" />
-          <div className="flex items-center gap-0.5">
-            {[3, 5, 2, 6, 4, 7, 3, 5, 8, 4, 6, 3].map((h, i) => (
-              <div key={i} className="w-1 bg-emerald-500/60 rounded-full pulse-bar" style={{ height: `${h * 3}px` }} />
+      <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+
+        {/* 1 — Active Agents */}
+        <motion.div
+          variants={pill}
+          className="flex items-center gap-2.5 px-3.5 py-2 rounded-full glass-pill flex-shrink-0 whitespace-nowrap"
+          style={{ ...glassBase, border: '1px solid rgba(52,211,153,0.18)' }}
+        >
+          <Bot className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <span className="text-xs text-slate-400">Agents</span>
+          <span className="text-sm font-bold text-emerald-400">9</span>
+          <span className="text-xs text-slate-600">/</span>
+          <span className="text-xs text-slate-500">11 online</span>
+        </motion.div>
+
+        {/* 2 — Daily Burn Rate */}
+        <motion.div
+          variants={pill}
+          className="flex items-center gap-2.5 px-3.5 py-2 rounded-full glass-pill flex-shrink-0 whitespace-nowrap"
+          style={glassBase}
+        >
+          <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+          <span className="text-xs text-slate-400">Burn</span>
+          <span className="text-sm font-bold text-amber-400">$2.4K</span>
+          <div className="flex items-end gap-0.5 ml-1">
+            {burnBars.map((h, i) => (
+              <div
+                key={i}
+                className="w-[3px] rounded-full pulse-bar"
+                style={{ height: `${h * 2}px`, background: i >= burnBars.length - 3 ? 'rgba(245,158,11,0.75)' : 'rgba(245,158,11,0.25)' }}
+              />
             ))}
           </div>
+          <span className="text-[10px] text-slate-500 ml-0.5">today</span>
         </motion.div>
-        {metrics.map((m) => (
-          <motion.div key={m.label} variants={pill} className="flex items-center gap-2.5 px-4 py-2 rounded-full" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-            <span className="text-xs text-slate-400">{m.label}</span>
-            <AnimatedNumber value={m.value} className={`text-xl font-bold ${m.color}`} />
-          </motion.div>
-        ))}
-        <motion.div variants={pill} className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-          <span className="text-xs text-slate-400">Spend vs Budget</span>
-          <span className="text-sm font-bold text-emerald-400">$18.4K</span>
-          <span className="text-xs text-slate-600">/</span>
-          <span className="text-sm font-semibold text-slate-400">$25K</span>
+
+        {/* 3 — Tasks Completed Today */}
+        <motion.div
+          variants={pill}
+          className="flex items-center gap-2.5 px-3.5 py-2 rounded-full glass-pill flex-shrink-0 whitespace-nowrap"
+          style={glassBase}
+        >
+          <CheckSquare className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+          <span className="text-xs text-slate-400">Tasks done</span>
+          <AnimatedNumber value={47} className="text-sm font-bold text-sky-400" />
         </motion.div>
-        <motion.div variants={pill} className="flex items-center gap-2 px-4 py-2 rounded-full bg-rose-950/40" style={{ border: '1px solid rgba(244, 63, 94, 0.3)' }}>
-          <AlertTriangle className="w-4 h-4 text-rose-400" />
-          <span className="text-xs font-medium text-rose-300">High Risk</span>
-          <AnimatedNumber value={2} className="text-xl font-bold text-rose-400" />
+
+        {/* 4 — Deliverables Produced */}
+        <motion.div
+          variants={pill}
+          className="flex items-center gap-2.5 px-3.5 py-2 rounded-full glass-pill flex-shrink-0 whitespace-nowrap"
+          style={glassBase}
+        >
+          <FileOutput className="w-3.5 h-3.5 text-violet-400 shrink-0" />
+          <span className="text-xs text-slate-400">Deliverables</span>
+          <AnimatedNumber value={12} className="text-sm font-bold text-violet-400" />
+          <span className="text-[10px] text-slate-500">today</span>
         </motion.div>
+
+        {/* 5 — System Uptime */}
+        <motion.div
+          variants={pill}
+          className="flex items-center gap-2.5 px-3.5 py-2 rounded-full glass-pill flex-shrink-0 whitespace-nowrap"
+          style={{ ...glassBase, border: '1px solid rgba(52,211,153,0.12)' }}
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <span className="text-xs text-slate-400">Uptime</span>
+          <span className="text-sm font-bold text-emerald-400">99.8%</span>
+        </motion.div>
+
+        {/* 6 — Last Synced */}
+        <motion.div
+          variants={pill}
+          className="flex items-center gap-2 px-3.5 py-2 rounded-full glass-pill flex-shrink-0 whitespace-nowrap ml-auto"
+          style={{ ...glassBase, border: '1px solid rgba(255,255,255,0.07)' }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 live-dot shrink-0" />
+          <RefreshCw className="w-3 h-3 text-slate-500 shrink-0" />
+          <span className="text-xs text-slate-500">Synced</span>
+          <LiveSyncBadge />
+        </motion.div>
+
       </div>
     </motion.div>
   );
