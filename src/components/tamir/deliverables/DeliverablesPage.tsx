@@ -751,10 +751,10 @@ function DeliverableCard({
           </div>
           <div className="flex items-center gap-2 shrink-0 mt-[1px]">
             {item.revisionRequestedAt && (
-              <RotateCcw size={10} style={{ color: '#f59e0b70' }} title="Revision requested" />
+              <RotateCcw size={10} style={{ color: '#f59e0b70' }} aria-label="Revision requested" />
             )}
             {item.pushedToVault && (
-              <Archive size={10} style={{ color: '#34d39960' }} title="Saved to vault" />
+              <Archive size={10} style={{ color: '#34d39960' }} aria-label="Saved to vault" />
             )}
             <span
               className="text-[9.5px] font-semibold tracking-wide"
