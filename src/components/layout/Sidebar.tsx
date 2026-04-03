@@ -8,7 +8,7 @@ import {
   Brain, Shield, Users, BookOpen, Settings, Sparkles,
   Home, Radio, AlertTriangle, Layers, ClipboardCheck,
   Clock, Target, Zap, Terminal, ChevronLeft, ChevronRight,
-  Pin, PinOff, HelpCircle, Calendar, Package, Lightbulb, X, Wrench,
+  Pin, PinOff, HelpCircle, Calendar, Package, Lightbulb, X, Wrench, FileText,
 } from 'lucide-react';
 
 // ── Nav structure ────────────────────────────────────────────────────────────
@@ -576,6 +576,77 @@ export default function Sidebar() {
           );
         })()}
       </AnimatePresence>
+
+      {/* ── Docs button ── */}
+      <div
+        className="shrink-0 px-2 pb-1"
+        style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 8 }}
+      >
+        <AnimatePresence mode="wait">
+          {isExpanded ? (
+            <motion.div
+              key="docs-expanded"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <Link
+                href="/docs"
+                className="relative flex items-center gap-2.5 pl-3 pr-3 py-[7px] rounded-lg text-[12px] font-medium transition-all group/link"
+                style={{
+                  color: pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding' ? 'white' : '#94a3b8',
+                  background: pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding' ? 'rgba(99,102,241,0.10)' : 'transparent',
+                }}
+              >
+                {(pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding') && (
+                  <motion.span
+                    layoutId="sidebar-active"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full"
+                    style={{ background: '#818cf8', boxShadow: '0 0 8px rgba(129,140,248,0.6)' }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                )}
+                <FileText
+                  size={14}
+                  style={{ color: pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding' ? '#818cf8' : '#64748b' }}
+                  className="shrink-0 transition-colors group-hover/link:text-slate-300"
+                />
+                <span className="truncate group-hover/link:text-white transition-colors">Docs</span>
+              </Link>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="docs-collapsed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="relative"
+            >
+              <Link
+                href="/docs"
+                className="flex items-center justify-center w-10 h-10 mx-auto rounded-xl transition-all"
+                style={{
+                  background: pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding' ? 'rgba(99,102,241,0.12)' : 'transparent',
+                  border: pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding' ? '1px solid rgba(129,140,248,0.20)' : '1px solid transparent',
+                }}
+              >
+                <FileText
+                  size={18}
+                  style={{ color: pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding' ? '#818cf8' : '#64748b' }}
+                />
+                {(pathname.startsWith('/docs') || pathname === '/manifesto' || pathname === '/guide' || pathname === '/metabolism' || pathname === '/onboarding') && (
+                  <span
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full"
+                    style={{ background: '#818cf8', boxShadow: '0 0 8px rgba(129,140,248,0.6)' }}
+                  />
+                )}
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* ── Bottom: pin toggle ── */}
       <div
