@@ -72,24 +72,6 @@ They don't track progress. They watch their **company evolve** — organizationa
 
 This is what we call the **Command Layer** — not a feature, but a design principle. The CEO isn't a worker clearing a queue. They're a commander running a campaign on a live map. The experience of using the system should feel like that — not because we added game elements, but because we built an interface honest enough to show what running a company actually is.
 
-### The Six Properties — Already in Your Company
-
-These aren't borrowed from games. They exist in your company right now. The system's job is to make them visible:
-
-1. **A world that moves without you.** Deals cool. Competitors ship. Engineers quietly burn out. Inaction is itself a decision, and it has consequences whether you made it consciously or not.
-
-2. **Scarce resources.** Your attention, your team's capacity, your capital, your time windows — every move costs something real. Spending here means not spending there.
-
-3. **Decisions with trade-offs.** There is no option that is purely good. Every real choice has a cost on the other side, and the best commanders see it clearly before they decide.
-
-4. **Fast feedback.** When you make a call, the world responds within days or weeks. The signals are there — if the system surfaces them.
-
-5. **Progression.** The company at month 12 is more capable than at month 1 because of the organizational skills you built, the patterns you taught, the doctrines you established. The system compounds.
-
-6. **Fog.** You don't see everything. Some areas are clear, some uncertain, some completely dark. How well you navigate what you don't know determines the quality of everything you decide.
-
-Every one of these exists in your company today. Every one is invisible in a traditional management tool. The Command Layer makes all six visible, tangible, and consequential — which is why using it feels like commanding something real.
-
 ---
 
 ## The Loop
@@ -105,8 +87,6 @@ The reason a good strategy game holds your attention for thousands of hours isn'
 **Mastery** — your decisions get better. The system gets more capable. You feel the distance between where you started and where you are now.
 
 Then it repeats. New state. New discovery. New decision. New consequence. Deeper mastery.
-
-Every section that follows describes one layer of Cortex. But every layer serves this loop. The living world creates clarity. Events and fog create discovery. Decision cards and campaigns create the moment of decision. Feedback and post-action reviews deliver the consequence. The Skill Tree delivers mastery.
 
 If a feature doesn't serve the loop, it doesn't belong in the system.
 
@@ -257,8 +237,6 @@ Examples:
 
 **"Operation Pipeline Recovery"** — 6 weeks. Objective: re-engage the enterprise pipeline after a competitive disruption. Phase 1: deploy CTO for technical deep-dives with 3 at-risk accounts (week 1-2). Phase 2: launch the enterprise pilot program with revised positioning (week 3-4). Phase 3: close or qualify all 3 accounts (week 5-6). Success metric: 2 of 3 deals re-engaged, pipeline value restored to pre-disruption levels.
 
-**"Series A Readiness"** — 8 weeks. Objective: prepare the company for fundraising. Sub-moves: financial audit, metrics dashboard, narrative deck, target investor list, warm introductions, founder prep sessions. Dependencies: Q2 revenue numbers must land first (expected week 3). Checkpoint: week 4 dry run with an advisor.
-
 **"Culture Reset"** — 4 weeks. Objective: address the burnout signals in engineering. Phase 1: 1:1 conversations with every engineer (week 1). Phase 2: identify structural causes — too many concurrent projects? Unclear priorities? Technical debt burden? (week 2). Phase 3: implement changes — reduce concurrent work, protect focus time, clear the oldest tech debt items (week 3-4). Success metric: commit frequency returns to baseline, no attrition.
 
 ### How Campaigns Live in the System
@@ -323,8 +301,6 @@ Ten days later, the fog clears. The competitive data shows your pricing is actua
 
 The decision card updates. The options have changed. What looked like a pricing problem is actually an onboarding problem. Without reconnaissance, you would have lowered prices — solving a problem that didn't exist and leaving the real problem untouched.
 
-That moment — when the fog lifts and you see the terrain clearly for the first time — is one of the most satisfying experiences in the system. Not because something exploded. Because you can finally *see*, and what you see changes everything.
-
 ---
 
 ## Events — The World Demands a Response
@@ -336,8 +312,6 @@ Tamir detects an event, assembles the context, and presents it as a structured m
 **"A key enterprise prospect just requested an emergency demo. They're evaluating your competitor simultaneously. Decision window: 48 hours."** This is not a calendar reminder. It is a situation card with what happened, why it matters, what options you have, what each option costs, and what the clock looks like. Tamir wrote it by reading the CRM, the email thread, the competitive intelligence, and your calendar — and synthesizing all of it into one brief.
 
 **"Your lead engineer mentioned burnout in a 1:1 summary. Team velocity in that pod has dropped 25% over two weeks. No escalation has been filed — this is pattern-detected."** A signal Tamir extracted from noise — connecting a 1:1 note, commit frequency data, and historical attrition patterns — surfaced with context you didn't have.
-
-**"A competitor just announced a pricing change that undercuts your mid-market tier by 30%. Three active deals reference this segment. The board meets in 10 days."** External event. Internal consequences. Time pressure. Strategic implications. Multiple threads to pull.
 
 Every event falls into a natural type: threats that will cause damage if ignored, opportunities that exist now but won't later, inflection points where trajectory changes, and accountability triggers where promises come due. Each requires a response — even if that response is "acknowledge and monitor." You cannot swipe it away. You must engage with what the world presented.
 
@@ -527,27 +501,11 @@ That recommendation is specific, sourced from the tree, and priced. It's not a v
 
 There's a question that most productivity frameworks never ask: what is the difference between a CEO who is *busy* and a CEO who is *building*?
 
-The busy CEO responds. They handle escalations, attend meetings, make approvals, put out fires. They are present, engaged, and perpetually occupied. At the end of the year, the company is roughly as capable as it was at the beginning — because every unit of their attention went into running the present, not building the future.
+The busy CEO responds. They handle escalations, attend meetings, make approvals, put out fires. At the end of the year, the company is roughly as capable as it was at the beginning — because every unit of their attention went into running the present, not building the future.
 
-The building CEO invests. They identify capability gaps, design the conditions to close them, and systematically expand what the organization can do without them. They spend significant time not on what the company needs *today*, but on what will allow the company to handle everything *tomorrow* — without asking.
+The building CEO invests. They identify capability gaps, design the conditions to close them, and systematically expand what the organization can do without them. The Skill Tree is where that work lives — and it is, without qualification, the highest-leverage investment of CEO time in the entire system.
 
-The Skill Tree is where that work lives. And it is, without qualification, the highest-leverage investment of CEO time in the entire system.
-
-Here is why.
-
-Every skill you level up becomes permanent infrastructure. Not a project that ends. Not a campaign that closes. Infrastructure — the kind that sits beneath every future mission, every future agent, every future decision, and silently determines the ceiling of what's possible.
-
-When your Customer Success skill reaches Level 4, Tamir doesn't just know that CS is running well. Every agent in the system that touches retention — the product agent designing renewal features, the finance agent modeling revenue projections, the operations agent routing support tickets — now operates on a higher floor. They inherit the capability. They don't have to rebuild it. They don't have to route it back to you. They simply run on it, indefinitely, across every mission they ever execute in that domain.
-
-This is the compounding effect that most management frameworks miss entirely. They treat capability building as a cost — time spent on internal process instead of external outcomes. The inverse is true. Capability building is the only investment that pays returns on every piece of work the company does, forever.
-
-Think of it in terms of what agents actually need to function well. An agent executing a sales campaign needs a playbook that's been tested and proven. An agent running a hiring process needs a documented evaluation framework that reflects the company's actual standards. An agent managing customer escalations needs a clear definition of what resolution looks like and what authority it has. Without these — without the organizational skill underlying the task — every agent improvises. Every mission starts from scratch. Every outcome is unpredictable.
-
-When the CEO invests in leveling up a skill, they are not doing work *for* the agents. They are building the ground *on which* the agents stand. The distinction matters philosophically and practically: the agents execute. The CEO builds the conditions under which execution becomes reliable, scalable, and independent.
-
-This is the oldest insight in leadership, restated for a new kind of organization. A general who fights every battle themselves has an army that cannot fight without them. A general who trains their army, instills doctrine, and builds institutional knowledge — that general is multiplied by every soldier, in every engagement, across every theater, long after the general is no longer watching.
-
-The CEO who spends their time at the Skill Tree is doing the general's work. Not the highest-urgency work. The highest-importance work. The work that compounds.
+Every skill you level up becomes permanent infrastructure. Not a project that ends. Not a campaign that closes. Infrastructure that sits beneath every future mission, every future agent, every future decision — and silently raises the ceiling of what's possible. This is the oldest insight in leadership: a general who trains their army and instills doctrine is multiplied by every soldier, in every engagement, long after the general is no longer watching. The CEO who spends time at the Skill Tree is doing that work. Not the highest-urgency work. The highest-importance work. The work that compounds.
 
 ### The Investment Calculus
 
@@ -558,9 +516,6 @@ Building the skill that prevents that class of escalation from recurring: solves
 
 Closing a deal yourself: one revenue event.
 Building the sales skill from Level 2 to Level 4: enables every agent-driven sales campaign to close at higher rates, for the rest of the company's life.
-
-Making a hiring decision: one hire.
-Building the hiring skill to Level 3: gives Tamir and the HR agent a framework to evaluate candidates consistently, reducing your involvement to final approval on senior roles only.
 
 The math is not subtle. An hour spent building organizational capability returns value across a potentially unlimited number of future operations. An hour spent executing an operation returns value exactly once.
 
@@ -577,16 +532,6 @@ If the CEO could report "we did that well, increase the level" — the tree woul
 When you complete a Campaign designed to level up a skill, Tamir watches what happens afterward. Not whether the campaign ran — whether the capability improved. If the Customer Success campaign ran but churn didn't move, the skill doesn't level up. If the sales documentation initiative ran and new rep ramp time dropped from 4 months to 6 weeks, the sales skill levels up — because the data shows it.
 
 The tree reflects your company's actual capability. Not your intentions. Not your effort. Your results.
-
-### What the Tree Looks Like Over Time
-
-Month 1: most skills at Level 1. A few at Level 2 — the areas where the founder has built something early. Foundation layer partially complete. Lots of dark nodes — capabilities you haven't touched yet.
-
-Month 6: Foundation layer mostly complete. Growth layer mixed — some skills advancing fast, some stuck behind prerequisites you haven't addressed. Two or three skills that looked strong are actually lower level than you thought, because Tamir assessed them against the data and found the success rate was lower than it felt.
-
-Month 18: Growth layer solidifying. First Excellence skills starting to emerge. The tree starts to show a shape — the specific profile of this company, the areas of genuine strength, the structural gaps that explain some of the persistent friction.
-
-Month 36: The tree tells the story of a company. What it became, where it invested, what it let go. The pattern of skills is not random — it's the consequence of hundreds of command decisions made over years. You can trace a line from a Campaign you ran in month 4 to a Level 4 skill you have today. The tree is, in the end, the record of your command.
 
 ---
 
