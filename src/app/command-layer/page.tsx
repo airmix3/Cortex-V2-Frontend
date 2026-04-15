@@ -10,15 +10,17 @@ const content = `
 
 ---
 
-Strategy games are built to be impossible to put down. Business software is built to be closed.
+Every productivity tool ever built makes the same assumption: the CEO's job is to complete tasks. It isn't.
 
-Running a company means operating with incomplete information, constrained resources, a world that moves whether you act or not, decisions where every option costs something real, and feedback that arrives — weeks later — telling you whether you were right.
+The CEO's job is to read the world, identify what matters, allocate scarce resources, make irreversible bets, and live with the consequences. That is not task management. That is command.
 
-It is, structurally, a strategy game. It always has been.
+Running a company is, structurally, a strategy game. It always has been.
 
-The software built to help you run it doesn't know that. Every tool ever built for a CEO carries the same embedded assumption: that running a company is a queue to be cleared rather than a campaign to be commanded.
+Which raises a question nobody in enterprise software thinks to ask: why do people voluntarily spend thousands of hours commanding virtual empires in Civilization, StarCraft, XCOM, and Football Manager — but dread opening their project management tool?
 
-That assumption is the problem. Not the features. Not the interface. The assumption.
+The answer isn't that games are fun and work is boring. The answer is that games model the real structure of decision-making — scarcity, fog, trade-offs, consequence, momentum — and most business tools strip all of that away, leaving nothing but a list.
+
+The game was always there. The software just refused to show it.
 
 The opportunity isn't gamification — it's honesty. Build software that shows the world as it actually is — scarce, uncertain, consequential — and the CEO doesn't need points or badges. They need to see the map. Once they can, they can't look away.
 
