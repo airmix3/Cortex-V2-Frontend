@@ -89,10 +89,10 @@ const docs = [
     hoverBorder: 'rgba(239,68,68,0.35)',
     tag: 'DESIGN PHILOSOPHY',
     tagColor: '#ef4444',
-    title: 'The Command Layer',
-    subtitle: 'Why running a company should feel like commanding one.',
+    title: 'The Game That Was Always There',
+    subtitle: 'How running a company becomes something you can\'t stop doing.',
     description:
-      'The case against task management and for command design. Scarcity, trade-offs, fog of war, consequence loops, and progression — how the structural properties of strategy games map onto the reality of running a living company. Not gamification. Command.',
+      'Why gamification fails — and why that\'s the wrong question. The real insight: your company is already a strategy game. Scarcity, fog of war, trade-offs, consequence loops, progression — they were always there. Command is what happens when you finally surface them.',
     meta: '~18 min read',
   },
   {
