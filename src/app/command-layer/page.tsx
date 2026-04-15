@@ -28,11 +28,7 @@ The opportunity isn't gamification — it's honesty. Build software that shows t
 
 ## The Obvious Answer — And Why It Fails
 
-The obvious way to make software compelling is gamification: add points, streaks, badges, leaderboards. Reward activity. Make usage feel like progress.
-
-It doesn't work. Not for this.
-
-Gamification creates a thin layer of engagement on top of whatever the system already does. If the underlying experience is shallow — a list of tasks, a dashboard of metrics — then the badges are decorating emptiness. You get a week of novelty and then nothing. The CEO closes the laptop and doesn't come back until they have to.
+Gamification creates a thin layer of engagement on top of whatever the system already does. If the underlying experience is shallow — a list of tasks, a dashboard of metrics — the badges are decorating emptiness. A week of novelty, then nothing.
 
 The problem isn't the incentive layer. The problem is the experience underneath it.
 
@@ -42,7 +38,7 @@ Gamification is the right instinct applied to the wrong diagnosis. The question 
 
 ## The Real Insight
 
-Running a company is already a strategy game. It always has been.
+Not as metaphor. As structural fact.
 
 It has **scarce resources** — your attention, your team's capacity, your capital, your time windows. You cannot do everything, and every choice has an opportunity cost.
 
@@ -56,9 +52,7 @@ It has **fast feedback** — when you make the right call, the company moves. Wh
 
 It has **progression** — the company you run at month 12 is categorically more capable than the one at month 1, if you built it right. Skills level up. Doctrines form. The system compounds.
 
-Every single property that makes Civilization, StarCraft, or Football Manager impossible to stop playing exists in the reality of running a company. The game was always there.
-
-The difference is that strategy games make this structure **visible**. The map shows you the threats. The resource bar shows you the scarcity. The feedback tells you what your last move caused.
+Strategy games make this structure **visible**. The map shows you the threats. The resource bar shows you the scarcity. The feedback tells you what your last move caused.
 
 Most business software does the opposite. It strips the world down to a flat list, removes the tension, flattens the trade-offs, and buries the consequences in a quarterly review three months later. It turns a dynamic, high-stakes, deeply strategic experience into something that feels like admin.
 
