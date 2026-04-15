@@ -124,6 +124,34 @@ Every interaction you have with Cortex is an interaction with Tamir's interpreta
 
 ---
 
+## There Is Always a Move
+
+In any great strategy game, you never open the map wondering what to do. The world has been moving since you last played. A border province is under pressure. A technology breakthrough opened new options. A rival shifted strategy overnight. The game reads the state of the world and converts it into things that need a commander.
+
+Great games are designed so that the queue never empties — not through artificial urgency, but because a living world always generates real situations faster than they can be resolved.
+
+Tamir works the same way.
+
+The CEO who opens Cortex at 7am is never greeted by a blank screen or an empty agenda. Tamir has been reading the world since the last session — monitoring every signal across every theater, tracking consequence chains from decisions made last week, watching patterns that haven't yet crossed into urgency but are getting close. By the time you arrive, he has already assembled what matters.
+
+Not a list of tasks. A ranked queue of situations — each one real, each one sourced from data, each one waiting for the one thing Tamir cannot provide: your judgment.
+
+The CEO doesn't need to know what missions to create. That is Tamir's job. The CEO's job is to command the queue — to decide what gets prioritized, what gets delegated, what waits, and what deserves a full campaign.
+
+### Three Types of Missions
+
+**Reactive missions** — something happened. A deal cooled. An engineer flagged something. A competitor moved. The world changed and it creates a specific, time-bound requirement for your attention. These are urgent by nature — but Tamir tells you which ones actually require *you*, and which ones he can handle autonomously.
+
+**Strategic missions** — something is possible. A window is opening. A pattern Tamir has been tracking for weeks has reached the threshold where it becomes actionable. These aren't urgent — but they're important, and they almost never announce themselves. Without Tamir, they stay invisible. Most CEOs never act on them not because they don't care, but because nothing ever put them on the map.
+
+**Capability missions** — something needs to be built. A Skill Tree gap is limiting what the company can do. An organizational weakness is creating recurring drag that no single decision can fix. These are the missions that compound — the ones that return value on every operation the company runs afterward. They're also the ones most easily crowded out by what's urgent. Tamir protects space for them.
+
+This is the experience that creates compulsion. You open the system knowing something real is waiting — not a reminder you set, not a meeting someone booked. Something the world generated, that Tamir found, that only you can resolve.
+
+The queue never empties. The game never runs out. There is always a move.
+
+---
+
 ## The Company as a Living World
 
 In Cortex, your company is not a list of projects. It is a **world with state** — a dynamic system where things happen, conditions shift, and the map looks different every morning.
