@@ -4,73 +4,113 @@ import AppShell from '@/components/layout/AppShell';
 import DocReader from '@/components/docs/DocReader';
 
 const content = `
-# The Command Layer
+# The Game That Was Always There
 
-## Why running a company should feel like commanding one.
-
----
-
-Every productivity tool ever built makes the same assumption: the CEO's job is to complete tasks.
-
-It isn't.
-
-The CEO's job is to read the world, identify what matters, allocate scarce resources, make irreversible bets, and live with the consequences. That is not task management. That is command. And the difference between the two is not semantic — it is the difference between a to-do app and a living system that a founder cannot stop thinking about.
-
-We looked at a question nobody in enterprise software asks: why do people voluntarily spend thousands of hours commanding virtual empires in Civilization, StarCraft, XCOM, and Football Manager — but dread opening their project management tool?
-
-The answer is not "games are fun and work is boring." The answer is that games model the structure of real decision-making — scarcity, consequence, fog, momentum, trade-offs — and most business tools strip all of that away, leaving nothing but a list.
-
-Cortex doesn't strip it away. Cortex makes it visible.
+## How running a company becomes something you can't stop doing.
 
 ---
 
-## The Insight: Not Gamification — Command
+Strategy games are built to be impossible to put down. Business software is built to be closed.
 
-Let's kill a word before it poisons the conversation.
+Running a company means operating with incomplete information, constrained resources, a world that moves whether you act or not, decisions where every option costs something real, and feedback that arrives — weeks later — telling you whether you were right.
 
-**Gamification** — as the industry uses it — means bolting badges, streaks, and confetti onto a system that doesn't deserve them. It means turning "responded to 10 emails" into a gold star. It means manufacturing dopamine where there is no meaning.
+It is, structurally, a strategy game. It always has been.
 
-That is not what this document describes.
+The software built to help you run it doesn't know that. Every tool ever built for a CEO carries the same embedded assumption: that running a company is a queue to be cleared rather than a campaign to be commanded.
 
-What this document describes is **command design** — the principle that a founder running a living company should experience the same structural satisfaction that a player feels commanding a complex system. Not because we added game elements. Because the underlying reality of running a company *is already a game* — the most consequential one there is — and the interface should honor that reality instead of flattening it into rows and checkboxes.
+That assumption is the problem. Not the features. Not the interface. The assumption.
 
-The distinction matters. Badges reward activity. Command design rewards judgment. Badges wear off in two weeks. Command design compounds for years — because the system gets deeper, not more decorated.
+The opportunity isn't gamification — it's honesty. Build software that shows the world as it actually is — scarce, uncertain, consequential — and the CEO doesn't need points or badges. They need to see the map. Once they can, they can't look away.
 
-### What Makes Strategy Games Addictive
+---
 
-Not points. Not leaderboards. Six structural properties:
+## The Obvious Answer — And Why It Fails
 
-1. **A world that moves without you.** The map doesn't pause. Threats develop. Opportunities decay. Inaction is itself a decision, with consequences.
+The obvious way to make software compelling is gamification: add points, streaks, badges, leaderboards. Reward activity. Make usage feel like progress.
 
-2. **Scarce resources.** You cannot do everything. Gold, time, attention, units — every move costs something, and spending here means not spending there.
+It doesn't work. Not for this.
 
-3. **Decisions with trade-offs.** There is no option that is purely good. Every choice strengthens one front and weakens another. The player must live inside that tension.
+Gamification creates a thin layer of engagement on top of whatever the system already does. If the underlying experience is shallow — a list of tasks, a dashboard of metrics — then the badges are decorating emptiness. You get a week of novelty and then nothing. The CEO closes the laptop and doesn't come back until they have to.
 
-4. **Fast feedback.** You make a call. The world responds. You see whether it worked — not in a quarterly review, but now.
+The problem isn't the incentive layer. The problem is the experience underneath it.
 
-5. **Progression.** Your capability expands. New options unlock. The system you command at hour 100 is categorically more powerful than the one at hour 1 — because *you* made it that way.
+Gamification is the right instinct applied to the wrong diagnosis. The question isn't "how do we reward the CEO for using the system?" The question is: **why isn't using the system inherently compelling in the first place?**
 
-6. **Fog.** You don't see everything. Some information is clear, some is uncertain, some is missing entirely. The quality of your decisions depends on how well you navigate what you don't know.
+---
 
-Every one of these properties exists in the reality of running a company. Every one of them is invisible in a traditional management tool. Cortex makes all six visible, tangible, and actionable.
+## The Real Insight
+
+Running a company is already a strategy game. It always has been.
+
+It has **scarce resources** — your attention, your team's capacity, your capital, your time windows. You cannot do everything, and every choice has an opportunity cost.
+
+It has **a world that moves without you** — deals cool overnight, competitors ship features, engineers quietly burn out, market windows open and close. Inaction is a decision, and it has consequences.
+
+It has **decisions with real trade-offs** — there is no option that is purely good. Deploy your CTO to save a sales deal, and the architecture review slips. Accelerate the launch, and delivery risk rises. Every real call has a cost on the other side.
+
+It has **fog** — there are areas you can't see clearly, information you don't have, signals you haven't detected yet. The quality of your judgment depends on how well you navigate uncertainty.
+
+It has **fast feedback** — when you make the right call, the company moves. When you don't, it shows within days or weeks, not quarters.
+
+It has **progression** — the company you run at month 12 is categorically more capable than the one at month 1, if you built it right. Skills level up. Doctrines form. The system compounds.
+
+Every single property that makes Civilization, StarCraft, or Football Manager impossible to stop playing exists in the reality of running a company. The game was always there.
+
+The difference is that strategy games make this structure **visible**. The map shows you the threats. The resource bar shows you the scarcity. The feedback tells you what your last move caused.
+
+Most business software does the opposite. It strips the world down to a flat list, removes the tension, flattens the trade-offs, and buries the consequences in a quarterly review three months later. It turns a dynamic, high-stakes, deeply strategic experience into something that feels like admin.
+
+That's why the CEO doesn't want to open it.
+
+---
+
+## What Changes When You Surface the Game
+
+When you design software that makes the real structure of running a company visible — not gamified, but *honest* — something fundamental shifts in how the CEO experiences it.
+
+They don't see a task list. They see a **situation report**: the live state of the company, what moved overnight, what's threatening, what window is opening, what needs their judgment right now.
+
+They don't manage items. They make **moves** — decisions with visible trade-offs, consequences that play out in real time, and a feedback loop that tells them whether they were right.
+
+They don't track progress. They watch their **company evolve** — organizational skills leveling up, doctrines forming, the system becoming more capable month by month as a direct result of how they commanded it.
+
+This is what we call the **Command Layer** — not a feature, but a design principle. The CEO isn't a worker clearing a queue. They're a commander running a campaign on a live map. The experience of using the system should feel like that — not because we added game elements, but because we built an interface honest enough to show what running a company actually is.
+
+### The Six Properties — Already in Your Company
+
+These aren't borrowed from games. They exist in your company right now. The system's job is to make them visible:
+
+1. **A world that moves without you.** Deals cool. Competitors ship. Engineers quietly burn out. Inaction is itself a decision, and it has consequences whether you made it consciously or not.
+
+2. **Scarce resources.** Your attention, your team's capacity, your capital, your time windows — every move costs something real. Spending here means not spending there.
+
+3. **Decisions with trade-offs.** There is no option that is purely good. Every real choice has a cost on the other side, and the best commanders see it clearly before they decide.
+
+4. **Fast feedback.** When you make a call, the world responds within days or weeks. The signals are there — if the system surfaces them.
+
+5. **Progression.** The company at month 12 is more capable than at month 1 because of the organizational skills you built, the patterns you taught, the doctrines you established. The system compounds.
+
+6. **Fog.** You don't see everything. Some areas are clear, some uncertain, some completely dark. How well you navigate what you don't know determines the quality of everything you decide.
+
+Every one of these exists in your company today. Every one is invisible in a traditional management tool. The Command Layer makes all six visible, tangible, and consequential — which is why using it feels like commanding something real.
 
 ---
 
 ## The Loop
 
-Before we describe any feature, any interface, any mechanic — the underlying structure.
+Before any feature, any interface, any mechanic — the underlying structure that makes this compelling.
 
-The reason strategy games are compelling for thousands of hours is not any single element. It is a **loop** — a cycle that repeats endlessly, each time slightly different, each time rewarding:
+The reason a good strategy game holds your attention for thousands of hours isn't any single element. It's a **loop** — a cycle that repeats endlessly, each time slightly different, each time rewarding:
 
 **Clarity** — you see the state of the world. You understand the situation.
-**Discovery** — you notice something. A risk. An opportunity. A pattern. A gap.
-**Decision** — you choose a move. Not from a menu of tasks — from a field of trade-offs, with real costs and real stakes.
-**Consequence** — the world responds. You see what your decision caused — the wins and the costs.
-**Mastery** — over time, your decisions get better. The system you command gets more capable. You feel the distance between where you started and where you are now.
+**Discovery** — you notice something. A risk. An opportunity. A skill gap. A pattern.
+**Decision** — you choose a move. Not from a menu of tasks — from a field of trade-offs with real costs and real stakes.
+**Consequence** — the world responds. You see what your decision caused.
+**Mastery** — your decisions get better. The system gets more capable. You feel the distance between where you started and where you are now.
 
 Then it repeats. New state. New discovery. New decision. New consequence. Deeper mastery.
 
-Every section that follows describes a layer of Cortex. But every layer serves the same loop. The living world creates clarity. Events and fog create discovery. Decision cards and campaigns create the decision moment. Feedback and post-action reviews deliver the consequence. The Skill Tree and progression deliver mastery.
+Every section that follows describes one layer of Cortex. But every layer serves this loop. The living world creates clarity. Events and fog create discovery. Decision cards and campaigns create the moment of decision. Feedback and post-action reviews deliver the consequence. The Skill Tree delivers mastery.
 
 If a feature doesn't serve the loop, it doesn't belong in the system.
 
